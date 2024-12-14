@@ -96,7 +96,7 @@ class CVRPEnv:
         self.saved_node_demand = loaded_dict['node_demand']
         self.saved_index = 0
 
-    def load_problems(self, batch_size, aug_factor=1):
+    def load_problems(self, batch_size, aug_factor=1,episode=0):
         first_done = False
         self.batch_size = batch_size
 
@@ -158,6 +158,7 @@ class CVRPEnv:
 
             # Add legend
             plt.legend(loc="upper left")
+            plt.savefig(f"plot/Instance_{episode}.png")
             plt.show()
 
             first_done = True
@@ -214,7 +215,7 @@ class CVRPEnv:
         done = False
         return self.step_state, reward, done
 
-    def step(self, selected):
+    def step(self, selected, episode=0):
         # selected.shape: (batch, pomo)
 
         # Dynamic-1
@@ -315,6 +316,7 @@ class CVRPEnv:
             plt.xlabel("X")
             plt.ylabel("Y")
             plt.legend()
+            plt.savefig(f"plot/Solution_{episode}.png")
             plt.show()
         else:
             reward = None
